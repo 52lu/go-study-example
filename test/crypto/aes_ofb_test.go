@@ -15,7 +15,7 @@ import (
 // 测试AES-OFB加密
 func TestAesEncryptByOFB(t *testing.T) {
 	key := strings.Repeat("a", 16)
-	data := "123456"
+	data := "123"
 	_, base64 := crypto.AesEncryptByOFB(data, key)
 	_, base642 := crypto.AesEncryptByCTR(data, key)
 	_, base643 := crypto.AesEncryptByCFB(data, key)

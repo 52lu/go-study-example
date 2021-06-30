@@ -30,7 +30,7 @@ func AesEncryptByCFB(data, key string) (string,string) {
 	blockSize := block.BlockSize()
 	// 创建偏移量iv,取秘钥前16个字符
 	iv := []byte(key[:blockSize])
-	fmt.Printf("iv = %s \n",iv)
+	//fmt.Printf("iv = %s \n",iv)
 	// 补码
 	padding := PKCS7Padding(dataByte, blockSize)
 	// 加密
