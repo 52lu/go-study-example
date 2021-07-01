@@ -33,7 +33,7 @@ func AesEncryptByGCM(data, key string) string {
 	seal := gcm.Seal(nonce, nonce, []byte(data), nil)
 	return base64.StdEncoding.EncodeToString(seal)
 }
-// 解密(GCM 不需要补码)
+// 解密(GCM 不需要解码)
 func AesDecryptByGCM(data, key string) string {
 	// 反解base64
 	dataByte,err := base64.StdEncoding.DecodeString(data)
