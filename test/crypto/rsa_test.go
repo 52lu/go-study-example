@@ -17,5 +17,5 @@ func TestGenerateKey(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Printf("%+v",key)
+	fmt.Printf("%+v\n",key)
 }
