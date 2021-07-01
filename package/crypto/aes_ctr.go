@@ -13,10 +13,10 @@ import (
 )
 
 // 加密 分别返回 hex格式和base64 结果
-func AesEncryptByCTR(data, key string) (string,string) {
+func AesEncryptByCTR(data, key string) (string, string) {
 	// 判断key长度
 	keyLenMap := map[int]struct{}{16: {}, 24: {}, 32: {}}
-	if _,ok := keyLenMap[len(key)]; !ok {
+	if _, ok := keyLenMap[len(key)]; !ok {
 		panic("key长度必须是 16、24、32 其中一个")
 	}
 	// 转成byte
@@ -25,7 +25,7 @@ func AesEncryptByCTR(data, key string) (string,string) {
 	// 创建block
 	block, err := aes.NewCipher(keyByte)
 	if err != nil {
-		panic(fmt.Sprintf("NewCipher error:%s",err))
+		panic(fmt.Sprintf("NewCipher error:%s", err))
 	}
 	blockSize := block.BlockSize()
 	// 创建偏移量iv,取秘钥前16个字符
@@ -35,29 +35,30 @@ func AesEncryptByCTR(data, key string) (string,string) {
 	// 加密
 	stream := cipher.NewCTR(block, iv)
 	// 定义保存结果变量
-	out := make([]byte,len(padding))
-	stream.XORKeyStream(out,padding)
+	out := make([]byte, len(padding))
+	stream.XORKeyStream(out, padding)
 	// 处理加密结果
-	hexRes := fmt.Sprintf("%x",out)
+	hexRes := fmt.Sprintf("%x", out)
 	base64Res := base64.StdEncoding.EncodeToString(out)
-	return hexRes,base64Res
+	return hexRes, base64Res
 }
+
 // 解密
-func AesDecryptByCTR(dataBase64,key string)  string {
+func AesDecryptByCTR(dataBase64, key string) string {
 	// 判断key长度
 	keyLenMap := map[int]struct{}{16: {}, 24: {}, 32: {}}
-	if _,ok := keyLenMap[len(key)]; !ok {
+	if _, ok := keyLenMap[len(key)]; !ok {
 		panic("key长度必须是 16、24、32 其中一个")
 	}
 	// dataBase64转成[]byte
 	decodeStringByte, err := base64.StdEncoding.DecodeString(dataBase64)
 	if err != nil {
-		panic(fmt.Sprintf("base64 DecodeString error: %s",err))
+		panic(fmt.Sprintf("base64 DecodeString error: %s", err))
 	}
 	// 创建block
 	block, err := aes.NewCipher([]byte(key))
 	if err != nil {
-		panic(fmt.Sprintf("NewCipher error: %s",err))
+		panic(fmt.Sprintf("NewCipher error: %s", err))
 	}
 	blockSize := block.BlockSize()
 	// 创建偏移量iv,取秘钥前16个字符
@@ -65,9 +66,9 @@ func AesDecryptByCTR(dataBase64,key string)  string {
 	// 创建Stream
 	stream := cipher.NewCTR(block, iv)
 	// 声明变量
-	out := make([]byte,len(decodeStringByte))
+	out := make([]byte, len(decodeStringByte))
 	// 解密
-	stream.XORKeyStream(out,decodeStringByte)
+	stream.XORKeyStream(out, decodeStringByte)
 	// 解密加密结果并返回
 	return string(PKCS7UNPadding(out))
 }

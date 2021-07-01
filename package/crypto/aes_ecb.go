@@ -14,7 +14,7 @@ import (
 func AesEncryptByECB(data, key string) string {
 	// 判断key长度
 	keyLenMap := map[int]struct{}{16: {}, 24: {}, 32: {}}
-	if _,ok := keyLenMap[len(key)]; !ok {
+	if _, ok := keyLenMap[len(key)]; !ok {
 		panic("key长度必须是 16、24、32 其中一个")
 	}
 	// 密钥和待加密数据转成[]byte
@@ -35,13 +35,11 @@ func AesEncryptByECB(data, key string) string {
 	return base64.StdEncoding.EncodeToString(encryptResult)
 }
 
-
-
 // 解密
 func AesDecryptByECB(data, key string) string {
 	// 判断key长度
 	keyLenMap := map[int]struct{}{16: {}, 24: {}, 32: {}}
-	if _,ok := keyLenMap[len(key)]; !ok {
+	if _, ok := keyLenMap[len(key)]; !ok {
 		panic("key长度必须是 16、24、32 其中一个")
 	}
 	// 反解密码base64
@@ -61,4 +59,3 @@ func AesDecryptByECB(data, key string) string {
 	// 反码
 	return string(PKCS7UNPadding(decrypted))
 }
-

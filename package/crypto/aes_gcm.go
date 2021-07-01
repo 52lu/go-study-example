@@ -33,10 +33,11 @@ func AesEncryptByGCM(data, key string) string {
 	seal := gcm.Seal(nonce, nonce, []byte(data), nil)
 	return base64.StdEncoding.EncodeToString(seal)
 }
+
 // 解密(GCM 不需要解码)
 func AesDecryptByGCM(data, key string) string {
 	// 反解base64
-	dataByte,err := base64.StdEncoding.DecodeString(data)
+	dataByte, err := base64.StdEncoding.DecodeString(data)
 	if err != nil {
 		panic(fmt.Sprintf("base64 DecodeString error:%s", err))
 	}

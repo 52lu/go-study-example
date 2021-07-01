@@ -21,6 +21,5 @@ func PKCS7Padding(originByte []byte, blockSize int) []byte {
 func PKCS7UNPadding(originDataByte []byte) []byte {
 	length := len(originDataByte)
 	unpadding := int(originDataByte[length-1])
-	return originDataByte[:(length-unpadding)]
+	return originDataByte[:(length - unpadding)]
 }
-
