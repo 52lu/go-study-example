@@ -21,8 +21,8 @@ type KeySaveInfo struct {
 	PublicKeyPem  string
 }
 
-// 生成密钥对
-func GenerateRSAKey(size int, savePath string) (KeySaveInfo, error) {
+// 生成密钥对(格式是: PKCS1)
+func GenerateRSAPKCS1Key(size int, savePath string) (KeySaveInfo, error) {
 	// 设置保存路径
 	savKeyPath = savePath
 	// 声明保存结果
@@ -37,12 +37,12 @@ func GenerateRSAKey(size int, savePath string) (KeySaveInfo, error) {
 		return keySaveInfo, fmt.Errorf("size too short size=%d ,bit=%d", size, bitLen)
 	}
 	// 保存私钥
-	err = savePrivateKeyByX509(privateKey,&keySaveInfo)
+	err = savePrivateKeyPKCS1(privateKey,&keySaveInfo)
 	if err != nil {
 		return keySaveInfo, err
 	}
 	// 保存公钥
-	err = savePublicKeyByX509(privateKey,&keySaveInfo)
+	err = savePublicKeyPKCS1(privateKey,&keySaveInfo)
 	if err != nil {
 		return keySaveInfo, err
 	}
@@ -50,8 +50,8 @@ func GenerateRSAKey(size int, savePath string) (KeySaveInfo, error) {
 }
 
 // 私钥以pem格式保存到文件
-func savePrivateKeyByX509(privateKey *rsa.PrivateKey,keySaveInfo *KeySaveInfo) error {
-	// MarshalPKCS1PrivateKey 将 RSA 私钥转换为 PKCS
+func savePrivateKeyPKCS1(privateKey *rsa.PrivateKey,keySaveInfo *KeySaveInfo) error {
+	// MarshalPKCS1PrivateKey 将 RSA 私钥转换为 PKCS1
 	x509PriKey := x509.MarshalPKCS1PrivateKey(privateKey)
 	// 创建私钥文件，后缀为pem
 	privateFile := fmt.Sprintf("%s/%s", savKeyPath, "private.pem")
@@ -68,8 +68,8 @@ func savePrivateKeyByX509(privateKey *rsa.PrivateKey,keySaveInfo *KeySaveInfo) e
 }
 
 // 公钥以pem格式保存到文件
-func savePublicKeyByX509(privateKey *rsa.PrivateKey,keySaveInfo *KeySaveInfo) error {
-	// MarshalPKCS1PrivateKey 将 RSA 私钥转换为 PKCS
+func savePublicKeyPKCS1(privateKey *rsa.PrivateKey,keySaveInfo *KeySaveInfo) error {
+	// MarshalPKCS1PrivateKey 将 RSA 私钥转换为 PKCS1
 	x509PublicKey := x509.MarshalPKCS1PublicKey(&privateKey.PublicKey)
 	// 创建公钥文件
 	publicKeyFile := fmt.Sprintf("%s/%s", savKeyPath, "public.pem")
