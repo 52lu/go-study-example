@@ -6,7 +6,7 @@
 package crypto
 
 import (
-	"52lu/go-study-example/package/crypto"
+	"52lu/go-study-example/example/crypto"
 	"fmt"
 	"strings"
 	"testing"
