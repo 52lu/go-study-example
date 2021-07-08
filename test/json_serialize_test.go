@@ -69,7 +69,7 @@ type Bird struct {
 	Category `json:"category"`
 }
 type Category struct {
-	Name string `json:"name"`
+	Name string `json:"categoryName"`
 }
 // 序列化-匿名字段,有json标签
 func TestAnonymousWithTag(t *testing.T) {
@@ -80,3 +80,6 @@ func TestAnonymousWithTag(t *testing.T) {
 	jsonByte, _ := json.Marshal(b)
 	fmt.Printf("json: %s \n", jsonByte)
 }
+
+
+
