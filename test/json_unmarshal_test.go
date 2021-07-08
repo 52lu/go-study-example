@@ -48,3 +48,4 @@ func TestUnMarshal(t *testing.T) {
 	}
 	fmt.Printf("反序列化结果: %+v\n",goStudy)
 }
+
