@@ -49,6 +49,7 @@ func TestBatchInsert(t *testing.T) {
 		{NickName: "路人甲", Age: 20, Phone: "20000000", MemberNumber: "A0002"},
 		{NickName: "路人乙", Age: 22, Phone: "30000000", MemberNumber: "A0003"},
 		{NickName: "路人丙", Age: 24, Phone: "40000000", MemberNumber: "A0004"},
+		{NickName: "路人丁", Age: 25, Phone: "50000000", MemberNumber: "A0005"},
 	}
 	// 保存
 	result := mysqlClient.Create(&userRows)
@@ -169,4 +170,74 @@ func TestUpdateMultipleColumn(t *testing.T) {
 		Where("id = ?", 4).Updates(updateUser2)
 	fmt.Printf("使用struct结构更新2: %+v err:%v \n", result.RowsAffected, result.Error)
 
+}
+
+// 删除数据(软删除)
+func TestSoftDel(t *testing.T) {
+	var result *gorm.DB
+	// 根据主键，删除一条记录
+	result = mysqlClient.Delete(&gorme.User{}, 1)
+	fmt.Printf("根据主键删除一条: %+v err:%v \n", result.RowsAffected, result.Error)
+	// 根据主键切片，删除多条记录
+	result = mysqlClient.Delete(&gorme.User{}, []int64{2, 3})
+	fmt.Printf("根据主键切片删除多条: %+v err:%v \n", result.RowsAffected, result.Error)
+	// 根据条件删除
+	result = mysqlClient.Where("age = ?", 0).Delete(&gorme.User{})
+	fmt.Printf("根据条件删除: %+v err:%v \n", result.RowsAffected, result.Error)
+}
+
+// 删除数据(硬删除)
+func TestStrongDel(t *testing.T) {
+	var result *gorm.DB
+	result = mysqlClient.Unscoped().Delete(&gorme.User{}, 1)
+	fmt.Printf("硬删除: %+v err:%v \n", result.RowsAffected, result.Error)
+}
+
+// 事务使用
+func TestTransaction(t *testing.T) {
+	err := mysqlClient.Transaction(func(tx *gorm.DB) error {
+		//在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
+		// 创建用户记录
+		user := gorme.User{NickName: "老王", Age: 48}
+		if err := tx.Create(&user).Error; err != nil {
+			// 回滚事务
+			return err
+		}
+		// 创建用户地址
+		userAddress := gorme.UserAddress{Uid: user.ID, Province: "北京", City: "北京", Area: "海淀区"}
+		if err := tx.Create(&userAddress).Error; err != nil {
+			// 回滚事务
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println("执行完成")
+}
+
+// 手动事务
+func TestUseManualTx(t *testing.T) {
+    // 用户表
+	user := gorme.User{NickName: "小丽", Age: 19}
+	// 开启事务
+	tx := mysqlClient.Begin()
+	// 添加用户
+	if err := tx.Create(&user).Error; err != nil {
+		// 遇到错误时回滚事务
+		fmt.Println("添加用户失败: ",err)
+		tx.Rollback()
+	}
+	// 用户地址表
+	userAddress := gorme.UserAddress{Uid: user.ID, Province: "北京", City: "北京", Area: "昌平区"}
+	// 添加用户地址
+	if err := tx.Create(&userAddress).Error; err != nil {
+		// 遇到错误时回滚事务
+		fmt.Println("添加用户地址失败: ",err)
+		tx.Rollback()
+	}
+	// 提交事务
+	tx.Commit()
+	fmt.Println("执行完成")
 }
