@@ -3,6 +3,7 @@ module 52lu/go-study-example
 go 1.15
 
 require (
+	github.com/360EntSecGroup-Skylar/excelize/v2 v2.4.0
 	github.com/allegro/bigcache v1.2.1
 	github.com/mattn/go-sqlite3 v1.14.7 // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible
