@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/360EntSecGroup-Skylar/excelize/v2 v2.4.0
 	github.com/allegro/bigcache v1.2.1
+	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/mattn/go-sqlite3 v1.14.7 // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	go.uber.org/zap v1.17.0
