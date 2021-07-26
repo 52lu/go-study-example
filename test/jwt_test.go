@@ -17,6 +17,10 @@ type UserClaims struct {
 	Uid  uint
 }
 
+func (u UserClaims) Valid() error {
+	panic("implement me")
+}
+
 // 创建Jwt
 func TestCreateJWTByNewWithClaims(t *testing.T) {
 	nowTime := time.Now()
