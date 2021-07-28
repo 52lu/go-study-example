@@ -63,20 +63,19 @@ func TestIncrAndDecr(t *testing.T) {
 
 // 删除和追加
 func TestDelAndAppend(t *testing.T) {
-	client, _ := goredis.ConnectSingle()
-	ctx := context.Background()
-	// 删除单个
-	client.Del(ctx,"key1")
-	// 删除多个
-	client.Del(ctx,"incr1","incr2","incr3")
+	goredis.DelAndAppend()
+}
 
-	// === 追加value 测试使用 ===
-	client.Set(ctx,"key","hello",time.Hour)
-	// 获取值
-	res1, _ := client.Get(ctx,"key").Result()
-	fmt.Println("追加前的值:",res1)
-	// 追加
-	client.Append(ctx,"key"," word")
-	res2, _ := client.Get(ctx,"key").Result()
-	fmt.Println("追加后的值:",res2)
+// 列表插入
+func TestInsertList(t *testing.T) {
+	goredis.InsertList()
+}
+
+// 列表查找
+func TestReadList(t *testing.T) {
+	goredis.ReadList()
+}
+// 列表删除
+func TestDelList(t *testing.T) {
+	goredis.DelList()
 }

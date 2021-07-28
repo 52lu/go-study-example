@@ -6,6 +6,7 @@ package goredis
 import (
 	"context"
 	"fmt"
+	"time"
 )
 
 // 自增和自减
@@ -56,4 +57,23 @@ func MGetSet() error {
 	result, _ := client.MGet(ctx, "key1", "key2", "key3").Result()
 	fmt.Println("MGet批量获取:", result)
 	return nil
+}
+// 删除和追加
+func DelAndAppend()  {
+	client, _ := ConnectSingle()
+	ctx := context.Background()
+	// 删除单个
+	client.Del(ctx,"key1")
+	// 删除多个
+	client.Del(ctx,"incr1","incr2","incr3")
+
+	// === 追加value 测试使用 ===
+	client.Set(ctx,"key","hello",time.Hour)
+	// 获取值
+	res1, _ := client.Get(ctx,"key").Result()
+	fmt.Println("追加前的值:",res1)
+	// 追加
+	client.Append(ctx,"key"," word")
+	res2, _ := client.Get(ctx,"key").Result()
+	fmt.Println("追加后的值:",res2)
 }
