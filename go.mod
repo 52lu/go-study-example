@@ -9,6 +9,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.0
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/olivere/elastic/v7 v7.0.27 // indirect
 	go.uber.org/zap v1.17.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gorm.io/driver/mysql v1.1.1
