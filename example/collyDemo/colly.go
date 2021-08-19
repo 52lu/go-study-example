@@ -22,7 +22,13 @@ func RunDemo() error {
 	})
 	//OnResponse如果收到的内容是HTML ,则在之后调用
 	collector.OnHTML("#position_shares table", func(element *colly.HTMLElement) {
-		fmt.Println("body:",element.Text)
+		// 遍历table
+		element.ForEach("table tr", func(_ int, el *colly.HTMLElement) {
+			name := el.ChildText("td:nth-of-type(1)")
+			percentage := el.ChildText("td:nth-of-type(2)")
+			fmt.Printf("名称:%v 仓位占比:%v \n",name,percentage)
+		})
+
 	})
 	return collector.Visit("https://fund.eastmoney.com/481010.html")
 }
