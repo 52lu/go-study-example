@@ -9,7 +9,7 @@ require (
 	github.com/antchfx/xmlquery v1.3.6 // indirect
 	github.com/antchfx/xpath v1.2.0 // indirect
 	github.com/go-redis/redis/v8 v8.11.0
-	github.com/gocolly/colly/v2 v2.1.0 // indirect
+	github.com/gocolly/colly/v2 v2.1.0
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
