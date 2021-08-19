@@ -132,6 +132,7 @@ func TestBatchAdd(t *testing.T) {
 		"张亮": "1994-07-15",
 		"小明": "1991-12-03",
 		"小英": "1995-11-11",
+		"小兰": "1993-11-11",
 	}
 	rand.Seed(time.Now().Unix())
 	// 创建bulk
