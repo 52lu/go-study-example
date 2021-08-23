@@ -64,16 +64,83 @@ func TestJiJIn(t *testing.T) {
 func TestUseAttr(t *testing.T) {
 	collector := colly.NewCollector()
 	collector.OnHTML("div[class='nav-logo'] > a", func(element *colly.HTMLElement) {
+		// 定位到div[class='nav-logo'] > a标签元素
 		fmt.Printf("href:%v\n",element.Attr("href"))
 	})
-	_ = collector.Visit("https://book.douban.com/tag/%E5%B0%8F%E8%AF%B4")
+	_ = collector.Visit("https://book.douban.com/tag/小说")
 }
-// 返回第一个子元素的属性
-func TestUseChildAttr(t *testing.T) {
+
+// 测试使用ChildAttr和ChildAttrs
+func TestChildAttrMethod(t *testing.T) {
 	collector := colly.NewCollector()
-	collector.OnHTML("#subject_list", func(element *colly.HTMLElement) {
+	collector.OnError(func(response *colly.Response, err error) {
+		fmt.Println("OnError",err)
+	})
+	//
+	collector.OnHTML("body", func(element *colly.HTMLElement) {
+		// 获取第一个子元素(div)的class属性
 		fmt.Printf("ChildAttr:%v\n",element.ChildAttr("div","class"))
+		// 获取所有子元素(div)的class属性
 		fmt.Printf("ChildAttrs:%v\n",element.ChildAttrs("div","class"))
 	})
-	_ = collector.Visit("https://book.douban.com/tag/%E5%B0%8F%E8%AF%B4")
+	err := collector.Visit("https://liuqh.icu/a.html")
+	if err != nil {
+		fmt.Println("err",err)
+	}
+}
+
+
+// 测试使用ChildText和ChildTexts
+func TestChildTextMethod(t *testing.T) {
+	collector := colly.NewCollector()
+	collector.OnError(func(response *colly.Response, err error) {
+		fmt.Println("OnError",err)
+	})
+	//
+	collector.OnHTML("body", func(element *colly.HTMLElement) {
+		// 获取第一个子元素(div)的class属性
+		fmt.Printf("ChildText:%v\n",element.ChildText("div"))
+		// 获取所有子元素(div)的class属性
+		fmt.Printf("ChildTexts:%v\n",element.ChildTexts("div"))
+	})
+	err := collector.Visit("https://liuqh.icu/a.html")
+	if err != nil {
+		fmt.Println("err",err)
+	}
+}
+// 遍历
+func TestForeach(t *testing.T) {
+	collector := colly.NewCollector()
+	collector.OnHTML("ul[class='demo']", func(element *colly.HTMLElement) {
+		element.ForEach("li", func(_ int, el *colly.HTMLElement) {
+			name := el.ChildText("span[class='name']")
+			age := el.ChildText("span[class='age']")
+			home := el.ChildText("span[class='home']")
+			fmt.Printf("姓名: %s  年龄:%s 住址: %s \n",name,age,home)
+		})
+	})
+	_ = collector.Visit("https://liuqh.icu/a.html")
+}
+
+// 定义结构体
+type Book struct {
+	Name string `selector:"span.title"`
+	Link string `selector:"span > a" attr:"href"`
+	Author string `selector:"span.autor"`
+	Reviews []string `selector:"ul.category > li"`
+	Price string `selector:"span.price"`
+}
+
+func TestUnmarshal(t *testing.T) {
+	// 声明结构体
+	var book Book
+	collector := colly.NewCollector()
+	collector.OnHTML("body", func(element *colly.HTMLElement) {
+		err := element.Unmarshal(&book)
+		if err != nil {
+			fmt.Println("解析失败:",err)
+		}
+		fmt.Printf("结果:%+v\n",book)
+	})
+	_ = collector.Visit("https://liuqh.icu/a.html")
 }
