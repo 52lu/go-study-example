@@ -16,3 +16,4 @@
 
 .idea
 tmp
+test/run_test.go
