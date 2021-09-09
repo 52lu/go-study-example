@@ -21,7 +21,7 @@ func TestLookPath(t *testing.T) {
 }
 
 // 使用Run()执行命令
-func TestRun(t *testing.T) {
+func TestRunExec(t *testing.T) {
 	// 执行: go version
 	cmd := exec.Command("sleep", "3s")
 	// 具体执行
