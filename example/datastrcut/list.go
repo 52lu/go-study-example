@@ -14,9 +14,8 @@ func CreateList()  {
 	l.InsertAfter("B",nodeD)
 	//l.InsertAfter("C",nodeB)
 	//l.InsertAfter("D",nodeB)
-	for font := l.Front(); font != nil; {
-		
+	for e := l.Front(); e != nil; e = e.Next()  {
+		fmt.Println(e.Value)
 	}
-	fmt.Println(l)
 
 }

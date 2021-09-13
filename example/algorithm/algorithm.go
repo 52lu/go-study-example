@@ -66,33 +66,33 @@ func QuickSort(data []int) []int {
 	for i := 1; i < len(data); i++ {
 		// 假设第一个元素
 		if data[i] > benchMark {
-			rightGroup = append(rightGroup,data[i])
-		} else  {
-			leftGroup = append(leftGroup,data[i])
+			rightGroup = append(rightGroup, data[i])
+		} else {
+			leftGroup = append(leftGroup, data[i])
 		}
 	}
 	// 分组后继续操作
 	rightGroup = QuickSort(rightGroup)
 	leftGroup = QuickSort(leftGroup)
 	// 合并结果
-	leftGroup = append(leftGroup,benchMark)
+	leftGroup = append(leftGroup, benchMark)
 	for i := 0; i < len(rightGroup); i++ {
-		leftGroup = append(leftGroup,rightGroup[i])
+		leftGroup = append(leftGroup, rightGroup[i])
 	}
 	return leftGroup
 }
 
 // InsertSort 插入排序
 // 从第二个数开始向右侧遍历,如果左侧的元素比取的数大，则互换位置
-func InsertSort(data []int) []int{
-	fmt.Println("length=",len(data))
+func InsertSort(data []int) []int {
+	fmt.Println("length=", len(data))
 	if len(data) <= 1 {
 		return data
 	}
 	for i := 1; i < len(data); i++ {
-		value :=  data[i]
+		value := data[i]
 		// 左侧数据index
-		j := i -1
+		j := i - 1
 		for j >= 0 && data[j] > value {
 			// 如果左侧的元素比取的数大，则右移
 			data[j+1] = data[j]
@@ -103,3 +103,43 @@ func InsertSort(data []int) []int{
 	}
 	return data
 }
+
+// BinarySearch 二分查找，返回索引值,不存在则返回-1
+func BinarySearch(data []int, beginIndex, endIndex, search int) int {
+	// 大前提条件
+	if beginIndex <= endIndex {
+		// 计算中间下标
+		middenIndex := (beginIndex + endIndex) / 2
+		if data[middenIndex] == search {
+			return middenIndex
+		} else if search < data[middenIndex] {
+			// 如果查找的值，小于中间值
+			return BinarySearch(data, beginIndex, middenIndex-1, search)
+		} else {
+			// 如果查找的值，大于中间值
+			return BinarySearch(data, middenIndex+1, endIndex, search)
+		}
+	}
+	return -1
+}
+
+// BinarySearch2 二分查找
+func BinarySearch2(data []int, search int) int  {
+	beginIndex := 0
+	endIndex := len(data) -1
+	for beginIndex  <= endIndex {
+		midIndex := (endIndex + beginIndex) / 2
+		if data[midIndex] == search {
+			return midIndex
+		} else if search < data[midIndex] {
+			endIndex = midIndex -1
+		} else {
+			beginIndex = midIndex + 1
+		}
+	}
+
+	return -1
+}
+
+
+
