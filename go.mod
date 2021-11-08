@@ -1,10 +1,10 @@
 module 52lu/go-study-example
 
-go 1.15
+go 1.16
 
 require (
-	github.com/360EntSecGroup-Skylar/excelize/v2 v2.4.0
-	github.com/PuerkitoBio/goquery v1.7.1
+	//github.com/360EntSecGroup-Skylar/excelize/v2 v2.4.0
+	github.com/PuerkitoBio/goquery v1.7.1 // indirect
 	github.com/allegro/bigcache v1.2.1
 	github.com/antchfx/xmlquery v1.3.6 // indirect
 	github.com/antchfx/xpath v1.2.0 // indirect

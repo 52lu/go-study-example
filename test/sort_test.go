@@ -6,7 +6,7 @@
 package test
 
 import (
-	"52lu/go-study-example/example/algorithm"
+	"52lu/go-study-example/app/algorithm"
 	"fmt"
 	"sort"
 	"testing"

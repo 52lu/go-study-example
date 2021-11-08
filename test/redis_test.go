@@ -4,7 +4,7 @@
 package test
 
 import (
-	"52lu/go-study-example/example/goredis"
+	"52lu/go-study-example/app/goredis"
 	"context"
 	"fmt"
 	"testing"

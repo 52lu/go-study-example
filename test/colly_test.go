@@ -1,7 +1,7 @@
 package test
 
 import (
-	"52lu/go-study-example/example/collyDemo"
+	"52lu/go-study-example/app/collyDemo"
 	"fmt"
 	"github.com/gocolly/colly/v2"
 	"github.com/gocolly/colly/v2/debug"
