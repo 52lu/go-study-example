@@ -28,3 +28,14 @@ type UserAddress struct {
 	Area     string `gorm:"type:varchar(20);not null;default:'';comment:所属区、县"`
 	Detail   string `gorm:"type:varchar(255);not null;default:'';comment:具体地址"`
 }
+
+type UserList struct {
+	gorm.Model
+	NickName     string         `gorm:"type:varchar(20);not null;default:'';comment:昵称"`
+	Age          uint8          `gorm:"size:3;comment:年龄"`
+	Phone        string         `gorm:"type:char(11);uniqueIndex:un_phone;comment:手机号"`
+	MemberNumber string         `gorm:"type:varchar(20);index:un_number;comment:会员编号"`
+	Likes        string         `gorm:"type:varchar(200);comment:爱好"`
+	Address      string         `gorm:"type:varchar(200);comment:家庭地址"`
+	Birthday     sql.NullString `gorm:"type:varchar(10);comment:生日"`
+}
