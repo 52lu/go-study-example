@@ -6,7 +6,7 @@
 package test
 
 import (
-	"52lu/go-study-example/example/algorithm"
+	"52lu/go-study-example/app/algorithm"
 	"fmt"
 	"sort"
 	"testing"
@@ -125,39 +125,57 @@ func TestReverseSort(t *testing.T) {
 // 测试选择排序
 func TestSelectSort(t *testing.T) {
 	b := time.Now().UnixNano()
-	data := []int{23,14,76,42,35,29,10,42}
+	data := []int{23, 14, 76, 42, 35, 29, 10, 42}
 	selectSort := algorithm.SelectSort(data)
 	fmt.Println(selectSort)
-	use := time.Now().UnixNano()-b
-	fmt.Println("end: ",use)
+	use := time.Now().UnixNano() - b
+	fmt.Println("end: ", use)
 }
 
 // 测试冒泡排序
 func TestBubbleSort(t *testing.T) {
 	b := time.Now().UnixNano()
-	data := []int{23,14,76,42,35,29,10,42}
+	data := []int{23, 14, 76, 42, 35, 29, 10, 42}
 	res := algorithm.BubbleSort(data)
 	fmt.Println(res)
-	use := time.Now().UnixNano()-b
-	fmt.Println("end: ",use)
+	use := time.Now().UnixNano() - b
+	fmt.Println("end: ", use)
 }
 
 // 测试快速排序
 func TestQuickSort(t *testing.T) {
 	b := time.Now().UnixNano()
-	data := []int{23,14,76,42,35,29,10,42,33,28,182}
+	data := []int{23, 14, 76, 42, 35, 29, 10, 42, 33, 28, 182}
 	res := algorithm.QuickSort(data)
 	fmt.Println(res)
-	use := time.Now().UnixNano()-b
-	fmt.Println("end: ",use)
+	use := time.Now().UnixNano() - b
+	fmt.Println("end: ", use)
 }
 
 // 测试插入排序
 func TestInsertSort(t *testing.T) {
 	b := time.Now().UnixNano()
-	data := []int{1,5,3,7,9,10,35,20,11,6,221}
+	data := []int{1, 5, 3, 7, 9, 10, 35, 20, 11, 6, 221}
 	res := algorithm.InsertSort(data)
 	fmt.Println(res)
-	use := time.Now().UnixNano()-b
-	fmt.Println("end: ",use)
+	use := time.Now().UnixNano() - b
+	fmt.Println("end: ", use)
+}
+
+type People struct {
+	Name string
+	Age  int
+}
+type listPeople []People
+func TestSortStruct(t *testing.T) {
+	l := listPeople{
+		People{Name: "张三", Age:  10},
+		People{Name: "李四", Age:  40},
+		People{Name: "王五", Age:  30},
+	}
+	sort.Slice(l, func(i, j int) bool {
+		// 正序
+		return l[i].Age < l[j].Age
+	})
+	fmt.Printf("%+v\n",l)
 }
