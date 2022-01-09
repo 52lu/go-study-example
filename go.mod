@@ -14,8 +14,8 @@ require (
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/mock v1.6.0 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/golang/protobuf v1.5.2
+	github.com/json-iterator/go v1.1.12
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/olivere/elastic/v7 v7.0.27
@@ -23,6 +23,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/temoto/robotstxt v1.1.2 // indirect
+	github.com/thoas/go-funk v0.9.1
 	github.com/tidwall/gjson v1.9.4 // indirect
 	github.com/xuri/excelize/v2 v2.4.1
 	go.uber.org/atomic v1.9.0 // indirect
